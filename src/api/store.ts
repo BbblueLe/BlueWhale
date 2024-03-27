@@ -30,4 +30,17 @@ export const getAllStores = () => {
         })
 }
 
+//获取一个商店的商店信息
+export const getOneStoreInfo = (id: number) => {
+    return axios.get(`${STORE_MODULE}/getInfo/${id}`)
+        .then(res => {
+            return res;
+        })
+}
+export const getAllProductsInStore = (storeId: number) => {
+    return axios.get(`${STORE_MODULE}/getOneStoreProducts/${storeId}`)
+        .then(res => {
+            return res;
+        })
+}
 

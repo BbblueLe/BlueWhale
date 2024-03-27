@@ -47,6 +47,16 @@ const router = createRouter({
                 component: () => import('../views/store/StoreDetail.vue'),
                 meta: {title: '店铺详情'},
                 props:true
+            },
+            {
+                path: '/createProduct/:storeId',
+                name: 'createProduct',
+                component: () => import('../views/product/CreateProduct.vue'),
+                meta: {
+                    title: '创建商品',
+                    permission: ['STAFF']
+                },
+                props:true
             }
         ]
     }, {

@@ -33,13 +33,13 @@ function handleLogin() {
         type: 'success',
         center: true,
       })
+      router.push({path: "/allStore"})
       const token = res.data.result
       sessionStorage.setItem('token', token)
 
       userInfo().then(res => {
         sessionStorage.setItem('name', res.data.result.name)
         sessionStorage.setItem('role', res.data.result.role)
-        router.push({path: "/dashboard"})
       })
     } else if (res.data.code === '400') {
       ElMessage({

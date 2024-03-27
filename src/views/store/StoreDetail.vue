@@ -1,20 +1,107 @@
 <!--Lab2新增-商店详情界面-->
 <script setup lang="ts">
-const props = defineProps(["storeId"])
+import {getAllProductsInStore, getOneStoreInfo} from "../../api/store.ts";
+import {reactive, ref} from 'vue'
+import ProductItem from "../../components/ProductItem.vue";
+import {
+  Document,
+  Menu as IconMenu,
+  Location,
+  Setting, CirclePlus,
+} from '@element-plus/icons-vue'
 
+const isCollapse = ref(true)
 
+let logoLink = ref('')
+let name = ref('')
+
+const props = defineProps(['storeId'])
+
+let productList = ref([
+  {
+    productId: 0,
+    name: '麦辣鸡腿堡',
+    price: 20,
+    type: 'FOOD',
+    productImages: [
+        'https://p2.itc.cn/q_70/images03/20220217/729907e3efa84fb8a1dc9cafdd7ded1e.jpeg',
+        'https://ts1.cn.mm.bing.net/th/id/R-C.d2b0e432c717f5bf32fe172f7e706f6c?rik=%2bOwo%2fBX6chyqQg&riu=http%3a%2f%2fofficialwebsitestorage.blob.core.chinacloudapi.cn%2fpublic%2fupload%2fattachment%2f2015%2f11%2f201511061723486318.png&ehk=xyzsBQIdXnvojPpC15IizqrU4b6fGGNnQ2OKNXgXjvA%3d&risl=&pid=ImgRaw&r=0'
+    ]
+  }
+])
+
+getOneStoreInfo(props.storeId).then(res => {
+  logoLink.value = res.data.result.logoLink
+  name.value = res.data.result.name
+  console.log(res)
+})
+getAllProductsInStore(props.storeId).then(res => {
+  console.log(res)
+  productList.value = res.data.result
+  console.log(productList)
+})
 </script>
 
 
 <template>
+  <router-link :to="`/createProduct/${props.storeId}`" v-slot="{navigate}">
+    <el-icon @click="navigate" class="add-button" :size="45" color="white"><CirclePlus /></el-icon>
+  </router-link>
   <el-container>
     <!--希望把商店详情的一部分内容放在这个侧边栏里，你要真不想放也没事-->
     <el-aside width="25%" class="page-aside">
-
+      <el-image :src="logoLink" class="store-img"></el-image>
+      <h2>{{name}}</h2>
+      <el-radio-group v-model="isCollapse" style="margin-bottom: 20px">
+        <el-radio-button :label="false" :value="false">expand</el-radio-button>
+        <el-radio-button :label="true" :value="true">collapse</el-radio-button>
+      </el-radio-group>
+      <el-menu
+          default-active="2"
+          class="el-menu-vertical-demo"
+          :collapse="isCollapse"
+      >
+        <el-sub-menu index="1">
+          <template #title>
+            <el-icon><location /></el-icon>
+            <span>Navigator One</span>
+          </template>
+          <el-menu-item-group>
+            <template #title><span>Group One</span></template>
+            <el-menu-item index="1-1">item one</el-menu-item>
+            <el-menu-item index="1-2">item two</el-menu-item>
+          </el-menu-item-group>
+          <el-menu-item-group title="Group Two">
+            <el-menu-item index="1-3">item three</el-menu-item>
+          </el-menu-item-group>
+          <el-sub-menu index="1-4">
+            <template #title><span>item four</span></template>
+            <el-menu-item index="1-4-1">item one</el-menu-item>
+          </el-sub-menu>
+        </el-sub-menu>
+        <el-menu-item index="2">
+          <el-icon><icon-menu /></el-icon>
+          <template #title>Navigator Two</template>
+        </el-menu-item>
+        <el-menu-item index="3">
+          <el-icon><document /></el-icon>
+          <template #title>Navigator Three</template>
+        </el-menu-item>
+        <el-menu-item index="4">
+          <el-icon><setting /></el-icon>
+          <template #title>Navigator Four</template>
+        </el-menu-item>
+      </el-menu>
     </el-aside>
 
     <el-main>
-    <h1>{{ props.storeId }}</h1>
+    <ProductItem v-for="product in productList" :key="product.productId"
+                 :pid="product.productId"
+                 :name="product.name"
+                 :price="product.price"
+                 :type="product.type"
+                 :images="product.productImages"
+    ></ProductItem>
     </el-main>
   </el-container>
 </template>
@@ -23,5 +110,19 @@ const props = defineProps(["storeId"])
 <style scoped>
 .page-aside {
   border-right: lightgrey solid 1px;
+}
+.store-img{
+  width: 100%;
+  height: 500px;
+}
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 200px;
+  min-height: 400px;
+}
+.add-button{
+  position: absolute;
+  width: 300rpx;
+  top: 7px;
+  right: 14%;
 }
 </style>

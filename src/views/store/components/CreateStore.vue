@@ -45,7 +45,7 @@ function createNewStore(){
         type: 'success',
         center: true
       })
-      router.push({path: "/home"})
+      router.back()
     } else if(res.data.code === '400') {
       ElMessage({
         message: res.data.msg,
