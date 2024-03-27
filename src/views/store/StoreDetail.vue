@@ -1,5 +1,7 @@
 <!--Lab2新增-商店详情界面-->
 <script setup lang="ts">
+const props = defineProps(["storeId"])
+
 
 </script>
 
@@ -12,7 +14,7 @@
     </el-aside>
 
     <el-main>
-
+    <h1>{{ props.storeId }}</h1>
     </el-main>
   </el-container>
 </template>

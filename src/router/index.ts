@@ -45,7 +45,8 @@ const router = createRouter({
                 path: '/storeDetail/:storeId',
                 name: 'storeDetail',
                 component: () => import('../views/store/StoreDetail.vue'),
-                meta: {title: '店铺详情'}
+                meta: {title: '店铺详情'},
+                props:true
             }
         ]
     }, {

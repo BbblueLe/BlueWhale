@@ -9,10 +9,14 @@
 import {ref} from 'vue'
 import {uploadImage} from '../../../api/tools.ts'
 import {UploadFilled} from "@element-plus/icons-vue";
+import {router} from "../../../router";
+import {createStore} from "../../../api/store.ts";
 
 //这里为大家提供上传且仅能上传1张图片的代码实现。
 const imageFileList = ref([])
 const logoUrl = ref('')
+
+const newStoreName = ref()
 
 function handleChange(file: any, fileList: any) {
   imageFileList.value = fileList
@@ -30,6 +34,27 @@ function handleExceed() {
 function uploadHttpRequest() {
   return new XMLHttpRequest()
 }
+function createNewStore(){
+  createStore({
+    logoLink: logoUrl.value,
+    name: newStoreName.value
+  }).then(res =>  {
+    if(res.data.code === '000') {
+      ElMessage({
+        message: "创建成功！",
+        type: 'success',
+        center: true
+      })
+      router.push({path: "/home"})
+    } else if(res.data.code === '400') {
+      ElMessage({
+        message: res.data.msg,
+        type: 'error',
+        center: true,
+      })
+    }
+  })
+}
 </script>
 
 
@@ -37,7 +62,9 @@ function uploadHttpRequest() {
   <el-main>
 
     <el-form>
-
+      <el-form-item label="商店名">
+        <el-input v-model="newStoreName" />
+      </el-form-item>
       <el-form-item label="商店Logo">
         <el-upload
             v-model:file-list="imageFileList"
@@ -56,6 +83,10 @@ function uploadHttpRequest() {
             将文件拖到此处或单击此处上传。仅允许上传一份文件。
           </div>
         </el-upload>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="createNewStore">Create</el-button>
+        <el-button @click="router.back()">Cancel</el-button>
       </el-form-item>
 
     </el-form>
