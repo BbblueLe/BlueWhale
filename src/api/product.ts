@@ -9,6 +9,7 @@ type ProductInfo = {
   inventory?: number
 }
 
+//创建商品
 export const createProduct = (productInfo: ProductInfo) => {
   return axios.post(`${PRODUCT_MODULE}/create`, productInfo,
       {headers: {'Content-Type': 'application/json'}}

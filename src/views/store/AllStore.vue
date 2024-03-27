@@ -7,9 +7,12 @@
 
   getStoreInfo()
 
+  //创建商店详情信息数组
   let storeList = reactive<Array<StoreDetails>>([
       {storeId: 0, name: "样本商店", logoLink: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'}
   ])
+
+  //获取所有商店信息
   function getStoreInfo() {
     getAllStores().then(res => {
       storeList = [...res.data]

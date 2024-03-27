@@ -3,6 +3,7 @@
  import {axios} from '../utils/request'
  import {STORE_MODULE} from './_prefix'
 
+
 type StoreInfo =  {
     logoLink: string,
     name: string
