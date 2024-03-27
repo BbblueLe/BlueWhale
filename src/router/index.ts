@@ -35,7 +35,7 @@ const router = createRouter({
             {
                 path: '/createStore',
                 name: 'createStore',
-                component: () => import('../views/store/CreateStore.vue'),
+                component: () => import('../views/store/components/CreateStore.vue'),
                 meta: {
                     title: '创建商店',
                     permission: ['MANAGER']

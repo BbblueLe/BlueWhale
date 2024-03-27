@@ -3,8 +3,7 @@ import {computed, ref} from 'vue'
 import {userInfo, userInfoUpdate} from '../../api/user.ts'
 import {parseRole, parseTime} from "../../utils"
 import {router} from '../../router'
-import {UserFilled} from "@element-plus/icons-vue";
-import {uploadImage} from "../../api/tools.ts";
+import {UserFilled} from "@element-plus/icons-vue"
 
 const role = sessionStorage.getItem("role")
 const name = ref('')
@@ -93,30 +92,6 @@ function updatePassword() {
       confirmPassword.value = ''
     }
   })
-}
-
-
-//这里为大家提供上传且仅能上传1张图片的代码实现。
-const imageFileList = ref([])
-const logoUrl = ref('')
-
-function handleChange(file: any, fileList: any) {
-  console.log(file)
-  console.log(fileList)
-  imageFileList.value = fileList
-  let formData = new FormData()
-  formData.append('file', file.raw)
-  uploadImage(formData).then(res => {
-    logoUrl.value = res.data.result
-  })
-}
-
-function handleExceed() {
-  ElMessage.warning(`当前限制选择 1 个文件`);
-}
-
-function uploadHttpRequest() {
-  return new XMLHttpRequest()
 }
 </script>
 
@@ -222,26 +197,7 @@ function uploadHttpRequest() {
       </el-form>
 
     </el-card>
-
-    <el-upload
-        v-model:file-list="imageFileList"
-        :limit="1"
-        :on-change="handleChange"
-        :on-exceed="handleExceed"
-        :on-remove="handleChange"
-        class="upload-demo"
-        list-type="picture"
-        :http-request="uploadHttpRequest"
-        drag>
-      <el-icon class="el-icon--upload">
-        <upload-filled/>
-      </el-icon>
-      <div class="el-upload__text">
-        将文件拖到此处或单击此处上传。
-      </div>
-    </el-upload>
   </el-main>
-
 </template>
 
 

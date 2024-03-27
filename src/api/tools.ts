@@ -3,7 +3,7 @@ import {axios} from '../utils/request'
 import {API_MODULE} from './_prefix'
 
 // 上传图片文件
-export const uploadImage = payload => {
+export const uploadImage = (payload: string) => {
     return axios.post(`${API_MODULE}/images`, payload, {
         headers:{
             'Content-Type': "multipart/form-data;"

@@ -7,7 +7,8 @@
 
 <script setup lang="ts">
 import {ref} from 'vue'
-import {uploadImage} from '../../api/tools'
+import {uploadImage} from '../../../api/tools.ts'
+import {UploadFilled} from "@element-plus/icons-vue";
 
 //这里为大家提供上传且仅能上传1张图片的代码实现。
 const imageFileList = ref([])
@@ -27,6 +28,7 @@ function handleExceed() {
 }
 
 function uploadHttpRequest() {
+  return new XMLHttpRequest()
 }
 </script>
 
@@ -51,7 +53,7 @@ function uploadHttpRequest() {
             <upload-filled/>
           </el-icon>
           <div class="el-upload__text">
-            将文件拖到此处或单击此处上传。
+            将文件拖到此处或单击此处上传。仅允许上传一份文件。
           </div>
         </el-upload>
       </el-form-item>
