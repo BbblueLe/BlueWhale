@@ -21,7 +21,8 @@ const newProduct = reactive({
   type: ''
 })
 const imageFileList = ref([])
-const logoUrl = ref([''])
+const logoUrl = [{imageUrl: ''}]
+logoUrl.pop()
 let storeName = ref('')
 let storeUrl = ref('')
 
@@ -35,7 +36,7 @@ function handleChange(file: any, fileList: any) {
   let formData = new FormData()
   formData.append('file', file.raw)
   uploadImage(formData).then(res => {
-    logoUrl.value.push(res.data.result)
+    logoUrl.push({imageUrl:res.data.result})
     console.log(res.data)
   })
 }
@@ -49,7 +50,7 @@ function createNewProduct() {
     name: newProduct.name,
     price: newProduct.price,
     type: newProduct.type,
-    productImages: logoUrl.value,
+    productImages: logoUrl,
     store: {storeId: props.storeId, name: storeName.value, logoLink: storeUrl.value}
   }).then(res => {
     if(res.data.code == '000') {

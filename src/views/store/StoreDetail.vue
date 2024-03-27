@@ -1,7 +1,8 @@
 <!--Lab2新增-商店详情界面-->
 <script setup lang="ts">
 import {getAllProductsInStore, getOneStoreInfo} from "../../api/store.ts";
-import {reactive, ref} from 'vue'
+import {ref} from 'vue'
+
 import ProductItem from "../../components/ProductItem.vue";
 import {
   Document,
@@ -11,6 +12,7 @@ import {
 } from '@element-plus/icons-vue'
 
 const isCollapse = ref(true)
+
 
 let logoLink = ref('')
 let name = ref('')
@@ -23,22 +25,19 @@ let productList = ref([
     name: '麦辣鸡腿堡',
     price: 20,
     type: 'FOOD',
-    productImages: [
-        'https://p2.itc.cn/q_70/images03/20220217/729907e3efa84fb8a1dc9cafdd7ded1e.jpeg',
-        'https://ts1.cn.mm.bing.net/th/id/R-C.d2b0e432c717f5bf32fe172f7e706f6c?rik=%2bOwo%2fBX6chyqQg&riu=http%3a%2f%2fofficialwebsitestorage.blob.core.chinacloudapi.cn%2fpublic%2fupload%2fattachment%2f2015%2f11%2f201511061723486318.png&ehk=xyzsBQIdXnvojPpC15IizqrU4b6fGGNnQ2OKNXgXjvA%3d&risl=&pid=ImgRaw&r=0'
-    ]
+    productImages: [{productImagesId: 0, imageUrl: ''}]
   }
 ])
 
 getOneStoreInfo(props.storeId).then(res => {
   logoLink.value = res.data.result.logoLink
   name.value = res.data.result.name
-  console.log(res)
+
 })
 getAllProductsInStore(props.storeId).then(res => {
-  console.log(res)
+
   productList.value = res.data.result
-  console.log(productList)
+  console.log(res.data.result)
 })
 </script>
 
@@ -95,13 +94,17 @@ getAllProductsInStore(props.storeId).then(res => {
     </el-aside>
 
     <el-main>
-    <ProductItem v-for="product in productList" :key="product.productId"
+     <el-row>
+       <el-col :span="10" v-for="product in productList" :key="product.productId">
+    <ProductItem
                  :pid="product.productId"
                  :name="product.name"
                  :price="product.price"
                  :type="product.type"
                  :images="product.productImages"
     ></ProductItem>
+       </el-col>
+     </el-row>
     </el-main>
   </el-container>
 </template>

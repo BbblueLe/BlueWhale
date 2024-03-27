@@ -3,12 +3,20 @@
  import {axios} from '../utils/request'
  import {PRODUCT_MODULE} from './_prefix'
 
+type ProductImages = {
+    imageUrl: string
+}
+export type ProductsImages = {
+    productImagesId: number,
+    imageUrl: string
+}
+
 
 type ProductInfo = {
   name: string,
   price: number,
   type: string,
-  productImages: string[],
+  productImages: ProductImages[],
   inventory?: number,
   store: {storeId: number, name: string, logoLink: string}
 }

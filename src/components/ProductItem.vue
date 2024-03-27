@@ -8,12 +8,12 @@ defineProps(['pid', 'name', 'price', 'type', 'images'])
   <el-card style="max-width: 480px">
     <template #header>
       <div class="card-header">
-        <h3>{{ name}}</h3>
+        <h3>{{ name }}</h3>
       </div>
     </template>
     <el-carousel height="200px" motion-blur indicator-position="outside">
       <el-carousel-item v-for="(image,index) in images" :key="index">
-        <el-image :src="image"></el-image>
+        <el-image :src="image.imageUrl"></el-image>
       </el-carousel-item>
     </el-carousel>
     <template #footer>
