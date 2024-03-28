@@ -1,6 +1,8 @@
 <!--Lab2新增-商品详情界面-->
 <script setup lang="ts">
+const productDetail = [
 
+]
 </script>
 
 

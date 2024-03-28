@@ -57,7 +57,18 @@ const router = createRouter({
                     permission: ['STAFF']
                 },
                 props:true
+            },
+            {
+                path: '/productDetail/:productId',
+                name: 'productDetail',
+                component: () => import('../views/product/ProductDetail.vue'),
+            },
+            {
+                path: '/updateInventory',
+                name: 'updateInventory',
+                component: () => import('../views/product/components/UpdateInventory.vue')
             }
+
         ]
     }, {
         path: '/404',

@@ -32,7 +32,7 @@ getStoreInfo()
   </router-link>
   <el-scrollbar height="100%">
     <el-row>
-      <el-col :span="4" v-for="store in storeList" :key="store.storeId" :offset="1">
+      <el-col :span="5" v-for="store in storeList" :key="store.storeId" :offset="1" class="store-col">
         <router-link :to="`/storeDetail/${store.storeId}`" v-slot="{navigate}">
           <StoreItem @click="navigate" :store="store"></StoreItem>
         </router-link>
@@ -63,5 +63,8 @@ getStoreInfo()
 .store-cards{
   position: relative;
 
+}
+.store-col{
+  margin: 25px;
 }
 </style>
