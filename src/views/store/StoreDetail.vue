@@ -11,6 +11,7 @@ import {
   Setting, CirclePlus,
 } from '@element-plus/icons-vue'
 import {router} from "../../router";
+import CreateProduct from "../product/CreateProduct.vue";
 
 const isCollapse = ref(true)
 
@@ -19,6 +20,8 @@ let logoLink = ref('')
 let name = ref('')
 
 const props = defineProps(['storeId'])
+
+const dialogVisible = ref(false)
 
 let productList = ref([
   {
@@ -38,18 +41,46 @@ getOneStoreInfo(props.storeId).then(res => {
   name.value = res.data.result.name
 
 })
-getAllProductsInStore(props.storeId).then(res => {
+getProductsInfo()
+function getProductsInfo() {
+  getAllProductsInStore(props.storeId).then(res => {
 
-  productList.value = res.data.result
-  console.log(res.data.result)
-})
+    productList.value = res.data.result
+    console.log(res.data.result)
+  })
+}
+function checkRole(){
+  const role: string | null = sessionStorage.getItem('role')
+  const sid : string | null = sessionStorage.getItem('storeId')
+  console.log(role, sid, props.storeId)
+  if(role && sid){
+    if(role === 'STAFF' && sid === props.storeId) {
+      dialogVisible.value = true
+    } else {
+      ElMessage({
+        message: '您没有该权限！',
+        type: 'error',
+        center: true,
+      })
+    }
+  }
+}
 </script>
 
 
 <template>
-  <router-link :to="`/createProduct/${props.storeId}`" v-slot="{navigate}">
-    <el-icon @click="navigate" class="add-button" :size="45" color="white"><CirclePlus /></el-icon>
-  </router-link>
+  <el-icon @click="checkRole" class="add-button" :size="45" color="white"><CirclePlus /></el-icon>
+  <el-dialog v-model="dialogVisible" title="创建商品" width="900" draggable overflow>
+    <CreateProduct :storeId="props.storeId"></CreateProduct>
+    <template #footer>
+      <div class="dialog-footer">
+        <el-button @click="dialogVisible = false;getProductsInfo()">取消</el-button>
+        <el-button type="primary" @click="dialogVisible = false; getProductsInfo()">
+          确认
+        </el-button>
+      </div>
+    </template>
+  </el-dialog>
   <el-container>
     <!--希望把商店详情的一部分内容放在这个侧边栏里，你要真不想放也没事-->
     <el-aside width="25%" class="page-aside">

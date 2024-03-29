@@ -14,11 +14,13 @@ import {createProduct} from "../../api/product.ts";
 import {getOneStoreInfo} from "../../api/store.ts";
 //这边是需要实现上传至少2张图片。可以从CreateStore里提供的代码改，也可以自己搜了写。
 
+
 const props = defineProps(['storeId'])
 const newProduct = reactive({
   name: '',
   price: 0,
-  type: ''
+  type: '',
+  description: ''
 })
 const imageFileList = ref([])
 const logoUrl = [{imageUrl: ''}]
@@ -30,6 +32,9 @@ getOneStoreInfo(props.storeId).then(res => {
   storeName = res.data.result.name
   storeUrl = res.data.result.logoLink
 })
+
+
+
 
 function handleChange(file: any, fileList: any) {
   imageFileList.value = fileList
@@ -51,6 +56,7 @@ function createNewProduct() {
     price: newProduct.price,
     type: newProduct.type,
     productImages: logoUrl,
+    description: newProduct.description,
     store: {storeId: props.storeId, name: storeName.value, logoLink: storeUrl.value}
   }).then(res => {
     if(res.data.code == '000') {
@@ -74,7 +80,6 @@ function createNewProduct() {
 
 <template>
   <el-main>
-
     <el-form :inline="true" class="demo-form-inline">
       <el-form-item label="商品" >
         <el-input v-model="newProduct.name" placeholder="Product Name" clearable/>
@@ -95,6 +100,9 @@ function createNewProduct() {
           <el-option label="SPORTS" value="SPORTS" />
           <el-option label="LUXURY" value="LUXURY" />
         </el-select>
+      </el-form-item>
+      <el-form-item label="商品描述" >
+        <el-input v-model="newProduct.description" placeholder="Product Description" clearable/>
       </el-form-item>
       <br>
       <el-form-item label="商品图片">

@@ -5,7 +5,7 @@ defineProps(['store'])
 </script>
 
 <template>
-  <el-card  style="width: 400px; height: auto" shadow="hover" class="store-cards">
+  <el-card  style="width: 350px; height: auto" shadow="hover" class="store-cards">
     <el-image :src="store.logoLink" class="store-img" ></el-image>
     <div>
       <br>
@@ -22,8 +22,8 @@ defineProps(['store'])
   position: relative;
 }
 .store-img{
-  width: 400px;
-  height: 400px;
+  width: 350px;
+  height: 300px;
   overflow-y: auto;
 }
 </style>

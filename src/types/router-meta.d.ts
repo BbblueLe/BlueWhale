@@ -4,6 +4,7 @@
 
 declare module 'vue-router' {
     interface RouteMeta {
+        storeId?: number
         permission?: Array<string>
         title?: string
     }

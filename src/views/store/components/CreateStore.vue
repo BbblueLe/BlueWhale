@@ -9,7 +9,7 @@
 import {ref} from 'vue'
 import {uploadImage} from '../../../api/tools.ts'
 import {UploadFilled} from "@element-plus/icons-vue";
-import {router} from "../../../router";
+
 import {createStore} from "../../../api/store.ts";
 
 //这里为大家提供上传且仅能上传1张图片的代码实现。
@@ -45,7 +45,6 @@ function createNewStore(){
         type: 'success',
         center: true
       })
-      router.back()
     } else if(res.data.code === '400') {
       ElMessage({
         message: res.data.msg,
@@ -54,6 +53,8 @@ function createNewStore(){
       })
     }
   })
+  newStoreName.value = ''
+  imageFileList.value = []
 }
 </script>
 
@@ -63,7 +64,7 @@ function createNewStore(){
 
     <el-form>
       <el-form-item label="商店名">
-        <el-input v-model="newStoreName" />
+        <el-input v-model="newStoreName" placeholder="Store Name" clearable/>
       </el-form-item>
       <el-form-item label="商店Logo">
         <el-upload
@@ -85,8 +86,7 @@ function createNewStore(){
         </el-upload>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="createNewStore">Create</el-button>
-        <el-button @click="router.back()">Cancel</el-button>
+        <el-button type="primary" @click="createNewStore">创建</el-button>
       </el-form-item>
 
     </el-form>

@@ -17,6 +17,7 @@ type ProductInfo = {
   price: number,
   type: string,
   productImages: ProductImages[],
+  description: string
   inventory?: number,
   store: {storeId: number, name: string, logoLink: string}
 }

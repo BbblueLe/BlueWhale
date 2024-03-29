@@ -2,7 +2,9 @@
 import {ref, computed} from 'vue'
 import {router} from '../../router'
 import {userRegister} from "../../api/user.ts"
+import {getAllStores} from "../../api/store.ts";
 
+getStoreInfo()
 // 输入框值（需要在前端拦截不合法输入：是否为空+额外规则）
 const name = ref('')
 const identity = ref('')
@@ -43,6 +45,18 @@ const registerDisabled = computed(() => {
         hasStoreName.value && telLegal.value && isPasswordIdentical.value)
   }
 })
+let storeList = ref([
+  {storeId: 0, name:'', logoLink:''}
+])
+
+//获取所有商店信息
+function getStoreInfo() {
+
+  getAllStores().then(res => {
+    storeList.value = res.data.result
+    console.log(storeList)
+  })
+}
 
 // 注册按钮触发
 function handleRegister() {
@@ -162,8 +176,12 @@ function handleRegister() {
                            v-model="storeId"
                            placeholder="请选择"
                            style="width: 100%;"
+
                 >
-                  <el-option value="1" label="商店1"/>
+                  <el-option v-for="store in storeList"
+                             :key="store.storeId"
+                             :value="store.storeId"
+                             :label="store.name"/>
                 </el-select>
               </el-form-item>
             </el-col>
