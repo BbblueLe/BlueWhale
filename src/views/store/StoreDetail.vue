@@ -10,7 +10,6 @@ import {
   Location,
   Setting, CirclePlus,
 } from '@element-plus/icons-vue'
-import {router} from "../../router";
 import CreateProduct from "../product/CreateProduct.vue";
 
 const isCollapse = ref(true)
@@ -32,9 +31,6 @@ let productList = ref([
     productImages: [{productImagesId: 0, imageUrl: ''}]
   }
 ])
-function jmp() {
-  router.push('/productDetail/:productId')
-}
 
 getOneStoreInfo(props.storeId).then(res => {
   logoLink.value = res.data.result.logoLink
@@ -131,13 +127,13 @@ function checkRole(){
     <el-main>
      <el-row>
        <el-col :span="10" v-for="product in productList" :key="product.productId">
-    <ProductItem @click="jmp"
+         <ProductItem
                  :pid="product.productId"
                  :name="product.name"
                  :price="product.price"
                  :type="product.type"
                  :images="product.productImages"
-    ></ProductItem>
+        ></ProductItem>
        </el-col>
      </el-row>
     </el-main>

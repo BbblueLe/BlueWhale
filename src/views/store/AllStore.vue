@@ -57,7 +57,7 @@ const dialogVisible = ref(false)
   <el-scrollbar height="100%">
     <el-row>
       <el-col :span="5" v-for="store in storeList" :key="store.storeId" :offset="1" class="store-col">
-        <router-link :to="`/storeDetail/${store.storeId}`" v-slot="{navigate}">
+        <router-link :to="`/storeDetail/${store.storeId}`" v-slot="{navigate}" class="no-link" >
           <StoreItem @click="navigate" :store="store"></StoreItem>
         </router-link>
       </el-col>
@@ -80,6 +80,9 @@ const dialogVisible = ref(false)
   width: 300rpx;
   top: 7px;
   right: 14%;
+}
+.no-link {
+  text-decoration: none;
 }
 .store-name{
   font-size: 20px;

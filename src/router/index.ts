@@ -46,29 +46,31 @@ const router = createRouter({
                 name: 'storeDetail',
                 component: () => import('../views/store/StoreDetail.vue'),
                 meta: {title: '店铺详情'},
-                props:true,
-                children: [
-                    {
-                        path: '/createProduct/:storeId',
-                        name: 'createProduct',
-                        component: () => import('../views/product/CreateProduct.vue'),
-                        meta: {
-                            title: '创建商品',
-                            permission: ['STAFF'],
-                        },
-                        props:true
-                    },
-                    {
-                        path: '/productDetail/:productId',
-                        name: 'productDetail',
-                        component: () => import('../views/product/ProductDetail.vue'),
-                    },
-                    {
-                        path: '/updateInventory',
-                        name: 'updateInventory',
-                        component: () => import('../views/product/components/UpdateInventory.vue')
-                    }
-                ]
+                props: true,
+            },
+            {
+                path: '/createProduct/:storeId',
+                name: 'createProduct',
+                component: () => import('../views/product/CreateProduct.vue'),
+                meta: {
+                    title: '创建商品',
+                    permission: ['STAFF'],
+                },
+                props: true
+            },
+            {
+                path: '/productDetail/:productId',
+                name: 'productDetail',
+                component: () => import('../views/product/ProductDetail.vue'),
+                meta: {
+                    title: '商品详情'
+                },
+                props: true
+            },
+            {
+                path: '/updateInventory',
+                name: 'updateInventory',
+                component: () => import('../views/product/components/UpdateInventory.vue')
             }
 
 
