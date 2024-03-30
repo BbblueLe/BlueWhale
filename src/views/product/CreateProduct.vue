@@ -9,7 +9,6 @@
 import {reactive, ref} from 'vue'
 import {uploadImage} from '../../api/tools.ts'
 import {Plus} from "@element-plus/icons-vue";
-import {router} from "../../router";
 import {createProduct} from "../../api/product.ts";
 import {getOneStoreInfo} from "../../api/store.ts";
 //这边是需要实现上传至少2张图片。可以从CreateStore里提供的代码改，也可以自己搜了写。
