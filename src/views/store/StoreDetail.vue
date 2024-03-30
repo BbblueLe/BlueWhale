@@ -51,21 +51,16 @@ function checkRole(){
   console.log(role, sid, props.storeId)
   if(role && sid){
     if(role === 'STAFF' && sid === props.storeId) {
-      dialogVisible.value = true
-    } else {
-      ElMessage({
-        message: '您没有该权限！',
-        type: 'error',
-        center: true,
-      })
+      return true
     }
   }
+  return false
 }
 </script>
 
 
 <template>
-  <el-icon @click="checkRole" class="add-button" :size="45" color="white"><CirclePlus /></el-icon>
+  <el-icon @click="dialogVisible=true" class="add-button" :size="45" color="white" v-show="checkRole()"><CirclePlus /></el-icon>
   <el-dialog v-model="dialogVisible" title="创建商品" width="900" draggable overflow>
     <CreateProduct :storeId="props.storeId"></CreateProduct>
     <template #footer>

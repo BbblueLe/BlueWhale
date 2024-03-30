@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {router} from '../router'
 import {parseRole} from "../utils"
-import {User, SwitchButton} from "@element-plus/icons-vue"   //图标
+import {User, SwitchButton, ArrowLeftBold} from "@element-plus/icons-vue"   //图标
 
 const role = sessionStorage.getItem('role')    //登录的时候插入的
 
@@ -30,7 +30,9 @@ function logout() {
 <template>
   <el-header class="custom-header" height="20">
     <el-row :gutter="10">
-
+      <el-col :span="1">
+        <el-icon @click="router.back()" style="margin-top: 20px" size="30px" color="white"><ArrowLeftBold /></el-icon>
+      </el-col>
       <el-col :span="3" class="header-icon">
         <router-link to="/allStore" v-slot="{navigate}" class="no-link">
           <h1 @click="navigate" class="header-text"> 蓝鲸在线购物</h1>
@@ -41,7 +43,7 @@ function logout() {
         <el-tag class="role-tag" size="large">{{ parseRole(role) }}版</el-tag>
       </el-col>
 
-      <el-col :span="16">
+      <el-col :span="15">
       </el-col>
 
       <el-col :span="1" class="header-icon">

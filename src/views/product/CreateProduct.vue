@@ -55,6 +55,7 @@ function createNewProduct() {
     price: newProduct.price,
     type: newProduct.type,
     productImages: logoUrl.value,
+    inventory: 10,
     description: newProduct.description,
     store: {storeId: props.storeId, name: storeName.value, logoLink: storeUrl.value}
   }).then(res => {

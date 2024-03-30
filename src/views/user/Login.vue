@@ -33,7 +33,7 @@ function handleLogin() {
         type: 'success',
         center: true,
       })
-      router.push({path: "/allStore"})
+      router.push({path: '/allStore'})
       const token = res.data.result
       sessionStorage.setItem('token', token)
 

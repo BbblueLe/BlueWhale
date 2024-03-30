@@ -6,10 +6,6 @@
 type ProductImages = {
     imageUrl: string
 }
-export type ProductsImages = {
-    productImagesId: number,
-    imageUrl: string
-}
 
 
 type ProductInfo = {
@@ -20,6 +16,11 @@ type ProductInfo = {
   description: string
   inventory?: number,
   store: {storeId: number, name: string, logoLink: string}
+}
+
+type UpdatedInfo = {
+    productId: number
+    inventory: number
 }
 
 //创建商品
@@ -36,5 +37,13 @@ export const getProductInfo = (productId : number) => {
         .then(res => {
             return res;
         })
+}
+
+export const updateProductInfo = (updatedInfo: UpdatedInfo) => {
+    return axios.post(`${PRODUCT_MODULE}/updateInfo`, updatedInfo,
+        {headers: {'Content-Type': 'application/json'}}
+        ).then(res => {
+            return res;
+    })
 }
 
