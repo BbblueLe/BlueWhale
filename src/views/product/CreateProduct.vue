@@ -23,8 +23,8 @@ const newProduct = reactive({
   description: ''
 })
 const imageFileList = ref([])
-const logoUrl = [{imageUrl: ''}]
-logoUrl.pop()
+const logoUrl = ref([{imageUrl: ''}])
+logoUrl.value.pop()
 let storeName = ref('')
 let storeUrl = ref('')
 
@@ -41,7 +41,7 @@ function handleChange(file: any, fileList: any) {
   let formData = new FormData()
   formData.append('file', file.raw)
   uploadImage(formData).then(res => {
-    logoUrl.push({imageUrl:res.data.result})
+    logoUrl.value.push({imageUrl:res.data.result})
     console.log(res.data)
   })
 }
@@ -55,7 +55,7 @@ function createNewProduct() {
     name: newProduct.name,
     price: newProduct.price,
     type: newProduct.type,
-    productImages: logoUrl,
+    productImages: logoUrl.value,
     description: newProduct.description,
     store: {storeId: props.storeId, name: storeName.value, logoLink: storeUrl.value}
   }).then(res => {
@@ -65,7 +65,6 @@ function createNewProduct() {
         type: 'success',
         center: true
       })
-      router.back()
     }else if(res.data.code === '400') {
       ElMessage({
         message: res.data.msg,
@@ -74,6 +73,12 @@ function createNewProduct() {
       })
     }
   })
+  newProduct.name = ''
+  newProduct.price = 0
+  newProduct.type = ''
+  newProduct.description = ''
+  imageFileList.value = []
+  logoUrl.value = []
 }
 </script>
 
@@ -121,7 +126,6 @@ function createNewProduct() {
 
     </el-form>
     <el-button type="primary" @click="createNewProduct">Create</el-button>
-    <el-button @click="router.back()">Cancel</el-button>
   </el-main>
 </template>
 
