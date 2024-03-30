@@ -1,5 +1,26 @@
 <!--Lab2新增-商品详情界面-->
 <script setup lang="ts">
+import {getProductInfo} from "../../api/product.ts";
+import {reactive} from "vue";
+
+const props = defineProps(['productId'])
+const productInfo = reactive({
+  name: '',
+  price: 0,
+  type: '',
+  productImages: [{imageUrl: ''}],
+  description: 'string'
+})
+
+
+getProductInfo(props.productId).then(res => {
+  productInfo.name = res.data.result.name
+  productInfo.price = res.data.result.price
+  productInfo.type = res.data.result.type
+  productInfo.productImages = res.data.result.productImages
+  productInfo.description = res.data.result.description
+})
+
 
 </script>
 
@@ -12,7 +33,6 @@
     </el-aside>
 
     <el-main>
-
     </el-main>
   </el-container>
 </template>

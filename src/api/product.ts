@@ -31,3 +31,10 @@ export const createProduct = (productInfo: ProductInfo) => {
   })
 }
 
+export const getProductInfo = (productId : number) => {
+    return axios.get(`${PRODUCT_MODULE}/getInfo/${productId}`)
+        .then(res => {
+            return res;
+        })
+}
+
