@@ -8,6 +8,7 @@ import {getOneStoreInfo} from "../../api/store.ts";
 
 const role = sessionStorage.getItem("role")
 const name = ref('')
+const storeID = ref(0)
 const storeName = ref('')
 const tel = ref('')
 const address = ref('')
@@ -31,10 +32,13 @@ function getUserInfo() {
   userInfo().then(res => {
     name.value = res.data.result.name
     tel.value = res.data.result.phone
-    storeName.value = res.data.result.storeName
+    storeID.value = res.data.result.storeId
     address.value = res.data.result.address
     regTime.value = parseTime(res.data.result.createTime)
     newName.value = name.value
+    getOneStoreInfo(storeID.value).then( res => {
+      storeName.value = res.data.result.name
+    })
   })
 }
 
@@ -120,11 +124,16 @@ function updatePassword() {
         </template>
 
         <el-descriptions-item label="身份">
-          <el-tag>{{ parseRole(role) }}</el-tag>
+          <el-tag>
+            {{ parseRole(role) }}
+          </el-tag>
         </el-descriptions-item>
 
-        <el-descriptions-item label="所属商店" v-if="role === 'STAFF'">
-          {{ storeName }}
+        <el-descriptions-item label="所属商店" v-if="role == 'STAFF'">
+          {{storeName}}
+        </el-descriptions-item>
+        <el-descriptions-item label="所属商店" v-else-if="role != 'STAFF'" >
+          无
         </el-descriptions-item>
 
         <el-descriptions-item label="联系电话">
