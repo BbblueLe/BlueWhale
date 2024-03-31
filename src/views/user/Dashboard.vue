@@ -4,6 +4,7 @@ import {userInfo, userInfoUpdate} from '../../api/user.ts'
 import {parseRole, parseTime} from "../../utils"
 import {router} from '../../router'
 import {UserFilled} from "@element-plus/icons-vue"
+import {getOneStoreInfo} from "../../api/store.ts";
 
 const role = sessionStorage.getItem("role")
 const name = ref('')
@@ -26,7 +27,6 @@ const changeDisabled = computed(() => {
 })
 
 getUserInfo()
-
 function getUserInfo() {
   userInfo().then(res => {
     name.value = res.data.result.name
@@ -34,7 +34,6 @@ function getUserInfo() {
     storeName.value = res.data.result.storeName
     address.value = res.data.result.address
     regTime.value = parseTime(res.data.result.createTime)
-
     newName.value = name.value
   })
 }

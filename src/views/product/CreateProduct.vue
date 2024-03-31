@@ -89,8 +89,8 @@ function createNewProduct() {
       <el-form-item label="商品" >
         <el-input v-model="newProduct.name" placeholder="Product Name" clearable/>
       </el-form-item>
-      <el-form-item label="价格">
-        <el-input v-model="newProduct.price" placeholder="Product Price" clearable/>
+      <el-form-item label="价格 (1~99999之间的正整数)">
+        <el-input-number v-model="newProduct.price" :min ="1" :max="99999" @change="handleChange"/>
       </el-form-item>
       <el-form-item label="商品类型" >
         <el-select
