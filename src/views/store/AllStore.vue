@@ -1,6 +1,6 @@
 <!--Lab2新增-全部商店界面/主页-->
 <script setup lang="ts">
-import {onBeforeMount, onBeforeUpdate, onUpdated, ref} from "vue";
+import {ref} from "vue";
 import {CirclePlus} from "@element-plus/icons-vue";
 import {getAllStores} from "../../api/store.ts"
 import StoreItem from "../../components/StoreItem.vue";

@@ -86,7 +86,7 @@ function createNewProduct() {
 <template>
   <el-main>
     <el-form :inline="true" class="demo-form-inline">
-      <el-form-item label="商品" >
+      <el-form-item label="商品名字" >
         <el-input v-model="newProduct.name" placeholder="Product Name" clearable/>
       </el-form-item>
       <el-form-item label="价格 (1~99999之间的正整数)">

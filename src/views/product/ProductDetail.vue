@@ -14,7 +14,8 @@ const productInfo = reactive({
   type: '',
   productImages: [{imageUrl: ''}],
   description: 'string',
-  storeId: 0
+  storeId: 0,
+  inventory: 0
 })
 
 function updateProductInfo() {
@@ -25,6 +26,7 @@ function updateProductInfo() {
     productInfo.productImages = res.data.result.productImages
     productInfo.description = res.data.result.description
     productInfo.storeId = res.data.result.store.storeId
+    productInfo.inventory = res.data.result.inventory
   })
 }
 
@@ -62,7 +64,9 @@ onMounted(()=> {
           border
       >
         <template #extra>
-          <el-button type="primary" v-show="checkRole()" @click="dialogVisible=true" color="#626aef">更新库存</el-button>
+          <el-button type="primary" v-show="checkRole()" @click="dialogVisible=true" color="#626aef">
+            更新库存
+          </el-button>
           <el-dialog v-model="dialogVisible" title="创建商品" width="900" draggable overflow>
             <UpdateInventory :productId="props.productId"></UpdateInventory>
             <template #footer>
@@ -98,6 +102,14 @@ onMounted(()=> {
             </div>
           </template>
           <el-tag size="small">{{productInfo.type}}</el-tag>
+        </el-descriptions-item>
+        <el-descriptions-item>
+          <template #label>
+            <div class="cell-item">
+              商品库存
+            </div>
+          </template>
+          {{productInfo.inventory}}
         </el-descriptions-item>
         <el-descriptions-item>
           <template #label>
