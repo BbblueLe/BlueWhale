@@ -12,16 +12,20 @@ import {
 } from '@element-plus/icons-vue'
 import CreateProduct from "../product/CreateProduct.vue";
 
+//导航栏组件变量
 const isCollapse = ref(true)
-
-
-let logoLink = ref('')
-let name = ref('')
-
-const props = defineProps(['storeId'])
-
+//弹窗组件变量
 const dialogVisible = ref(false)
 
+//商店logo
+const logoLink = ref('')
+//商店名
+const name = ref('')
+
+//从所有商店界面跳转时地址中传递的storeId
+const props = defineProps(['storeId'])
+
+//商品列表数组
 let productList = ref([
   {
     productId: 0,
@@ -32,12 +36,16 @@ let productList = ref([
   }
 ])
 
+//获取商店logo和商店名信息
 getOneStoreInfo(props.storeId).then(res => {
   logoLink.value = res.data.result.logoLink
   name.value = res.data.result.name
 
 })
+//调用方法获取商品信息
 getProductsInfo()
+
+//获取所有商品信息
 function getProductsInfo() {
   getAllProductsInStore(props.storeId).then(res => {
 
@@ -45,6 +53,9 @@ function getProductsInfo() {
     console.log(res.data.result)
   })
 }
+
+//身份验证，当且仅当身份为STAFF且对应storeId即注册时为所属商店时，可以创建商品
+//创建商品弹窗v-show="checkRole()"
 function checkRole(){
   const role: string | null = sessionStorage.getItem('role')
   const sid : string | null = sessionStorage.getItem('storeId')

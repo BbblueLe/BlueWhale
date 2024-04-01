@@ -6,12 +6,12 @@ import {getAllStores} from "../../api/store.ts"
 import StoreItem from "../../components/StoreItem.vue";
 import CreateStore from "./components/CreateStore.vue";
 
+  //调用方法获取商店信息
+  getStoreInfo()
 
-getStoreInfo()
-
-const dialogVisible = ref(false)
+  const dialogVisible = ref(false)
   //创建商店详情信息数组
-  let storeList = ref([
+  const storeList = ref([
       {storeId: 0, name:'', logoLink:''}
   ])
 
@@ -23,6 +23,9 @@ const dialogVisible = ref(false)
       console.log(storeList)
     })
   }
+
+  //查询身份信息，如果是管理员则返回true，反之false
+  //在创建商店的按钮中添加v-show="checkRole()"，仅有管理员可见该弹窗按钮
   function checkRole(){
     const role: string | null = sessionStorage.getItem('role')
     if(role){
@@ -67,11 +70,7 @@ const dialogVisible = ref(false)
 
 
 <style scoped>
-.store-img{
-  width: 400px;
-  height: 400px;
-  overflow-y: auto;
-}
+
 .add-button{
   position: absolute;
   width: 300rpx;
@@ -80,13 +79,6 @@ const dialogVisible = ref(false)
 }
 .no-link {
   text-decoration: none;
-}
-.store-name{
-  font-size: 20px;
-}
-.store-cards{
-  position: relative;
-
 }
 .store-col{
   margin: 25px;

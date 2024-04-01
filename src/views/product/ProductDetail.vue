@@ -5,9 +5,13 @@ import { onMounted, reactive, ref} from "vue";
 import UpdateInventory from "./components/UpdateInventory.vue";
 
 
-
+//弹窗组件变量
 const dialogVisible = ref(false)
+
+//父组件传来的productId用于查询更新商品信息
 const props = defineProps(['productId'])
+
+//商品信息数组
 const productInfo = reactive({
   name: '',
   price: 0,
@@ -18,6 +22,7 @@ const productInfo = reactive({
   inventory: 0
 })
 
+//展示商品详情前更新商品信息
 function updateProductInfo() {
   getProductInfo(props.productId).then(res => {
     productInfo.name = res.data.result.name
@@ -30,6 +35,7 @@ function updateProductInfo() {
   })
 }
 
+//身份验证，更新库存按钮是否可见
 function checkRole() {
   const sid : string | null = sessionStorage.getItem('storeId')
   console.log(sid, productInfo)
@@ -67,7 +73,7 @@ onMounted(()=> {
           <el-button type="primary" v-show="checkRole()" @click="dialogVisible=true" color="#626aef">
             更新库存
           </el-button>
-          <el-dialog v-model="dialogVisible" title="创建商品" width="900" draggable overflow>
+          <el-dialog v-model="dialogVisible" title="更新库存" width="900" draggable overflow>
             <UpdateInventory :productId="props.productId"></UpdateInventory>
             <template #footer>
               <div class="dialog-footer">

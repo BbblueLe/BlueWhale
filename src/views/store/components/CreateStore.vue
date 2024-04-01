@@ -34,6 +34,8 @@ function handleExceed() {
 function uploadHttpRequest() {
   return new XMLHttpRequest()
 }
+
+//创建商店
 function createNewStore(){
   createStore({
     logoLink: logoUrl.value,

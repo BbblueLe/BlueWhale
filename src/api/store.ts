@@ -1,7 +1,7 @@
 // Lab2新增
 // 开发时请解除3-4行的注释
- import {axios} from '../utils/request'
- import {STORE_MODULE} from './_prefix'
+import {axios} from '../utils/request'
+import {STORE_MODULE} from './_prefix'
 
 
 type StoreInfo =  {
@@ -37,6 +37,7 @@ export const getOneStoreInfo = (id: number) => {
             return res;
         })
 }
+//获取商店内所有商品信息
 export const getAllProductsInStore = (storeId: number) => {
     return axios.get(`${STORE_MODULE}/getOneStoreProducts/${storeId}`)
         .then(res => {

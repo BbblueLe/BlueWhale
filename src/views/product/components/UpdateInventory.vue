@@ -3,10 +3,12 @@
 import { ref } from 'vue';
 import {updateProductInfo} from "../../../api/product.ts";
 
+//父组件传递的productId
 const props = defineProps(['productId'])
+
 const quantity = ref(0);
 
-
+//更新库存
 function update() {
   updateProductInfo({
     productId: parseInt(props.productId),
@@ -41,22 +43,11 @@ function update() {
         <el-button type="primary" @click="update()">更新</el-button>
       </el-form-item>
     </el-form>
-  </el-main>a
+  </el-main>
 </template>
 
 
 <style scoped>
 
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh; /* 让容器充满整个视口高度 */
-}
-
-.button-group {
-  display: flex;
-  justify-content: center;
-}
 
 </style>

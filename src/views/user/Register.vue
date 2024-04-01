@@ -45,11 +45,13 @@ const registerDisabled = computed(() => {
         hasStoreName.value && telLegal.value && isPasswordIdentical.value)
   }
 })
-let storeList = ref([
+
+//商店数组（新增内容）
+const storeList = ref([
   {storeId: 0, name:'', logoLink:''}
 ])
 
-//获取所有商店信息
+//获取所有商店信息（新增内容）
 function getStoreInfo() {
 
   getAllStores().then(res => {
@@ -170,7 +172,7 @@ function handleRegister() {
             <el-col :span="7" v-if="identity==='STAFF'">
               <el-form-item>
                 <label for="address">
-                  所属商店（需待Lab2中完善）
+                  所属商店
                 </label>
                 <el-select id="storeName"
                            v-model="storeId"
