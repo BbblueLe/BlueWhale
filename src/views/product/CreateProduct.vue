@@ -94,12 +94,13 @@ function createNewProduct() {
             placeholder="Choose Type"
             clearable
         >
-          <el-option label="FOOD" value="FOOD" />
-          <el-option label="CLOTHES" value="CLOTHES" />
-          <el-option label="ELECTRONICS" value="ELECTRONICS" />
-          <el-option label="ENTERTAINMENT" value="ENTERTAINMENT" />
-          <el-option label="SPORTS" value="SPORTS" />
-          <el-option label="LUXURY" value="LUXURY" />
+          <el-option label="食品" value="FOOD" />
+          <el-option label="服饰" value="CLOTHES" />
+          <el-option label="家具" value="FURNITURE" />
+          <el-option label="电子产品" value="ELECTRONICS" />
+          <el-option label="娱乐" value="ENTERTAINMENT" />
+          <el-option label="体育用品" value="SPORTS" />
+          <el-option label="奢侈品" value="LUXURY" />
         </el-select>
       </el-form-item>
       <el-form-item label="商品描述" >

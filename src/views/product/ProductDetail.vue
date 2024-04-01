@@ -107,7 +107,13 @@ onMounted(()=> {
               商品类型
             </div>
           </template>
-          <el-tag size="small">{{productInfo.type}}</el-tag>
+          <el-tag v-if="productInfo.type.toString() == 'FOOD'">食品</el-tag>
+          <el-tag v-if="productInfo.type.toString() == 'CLOTHES'">服饰</el-tag>
+          <el-tag v-if="productInfo.type.toString() == 'FURNITURE'">家具</el-tag>
+          <el-tag v-if="productInfo.type.toString() == 'ELECTRONICS'">电子产品</el-tag>
+          <el-tag v-if="productInfo.type.toString() == 'ENTERTAINMENT'">娱乐</el-tag>
+          <el-tag v-if="productInfo.type.toString() == 'SPORTS'">体育用品</el-tag>
+          <el-tag v-if="productInfo.type.toString() == 'LUXURY'">奢侈品</el-tag>
         </el-descriptions-item>
         <el-descriptions-item>
           <template #label>
